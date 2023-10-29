@@ -4,6 +4,7 @@ using Ginga_Alexandra_Labo2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ginga_Alexandra_Labo2.Migrations
 {
     [DbContext(typeof(Ginga_Alexandra_Labo2Context))]
-    partial class Ginga_Alexandra_Labo2ContextModelSnapshot : ModelSnapshot
+    [Migration("20231023154306_Author")]
+    partial class Author
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,9 +33,11 @@ namespace Ginga_Alexandra_Labo2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -51,6 +55,9 @@ namespace Ginga_Alexandra_Labo2.Migrations
 
                     b.Property<int?>("AuthorID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Authors")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");
@@ -74,46 +81,6 @@ namespace Ginga_Alexandra_Labo2.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("Ginga_Alexandra_Labo2.Models.BookCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("BookID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookID");
-
-                    b.HasIndex("CategoryID");
-
-                    b.ToTable("BookCategory");
-                });
-
-            modelBuilder.Entity("Ginga_Alexandra_Labo2.Models.Category", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Category");
-                });
-
             modelBuilder.Entity("Ginga_Alexandra_Labo2.Models.Publisher", b =>
                 {
                     b.Property<int>("ID")
@@ -133,46 +100,20 @@ namespace Ginga_Alexandra_Labo2.Migrations
 
             modelBuilder.Entity("Ginga_Alexandra_Labo2.Models.Book", b =>
                 {
-                    b.HasOne("Ginga_Alexandra_Labo2.Models.Author", "Author")
-                        .WithMany()
+                    b.HasOne("Ginga_Alexandra_Labo2.Models.Author", null)
+                        .WithMany("Books")
                         .HasForeignKey("AuthorID");
 
                     b.HasOne("Ginga_Alexandra_Labo2.Models.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherID");
 
-                    b.Navigation("Author");
-
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("Ginga_Alexandra_Labo2.Models.BookCategory", b =>
+            modelBuilder.Entity("Ginga_Alexandra_Labo2.Models.Author", b =>
                 {
-                    b.HasOne("Ginga_Alexandra_Labo2.Models.Book", "Book")
-                        .WithMany("BookCategories")
-                        .HasForeignKey("BookID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ginga_Alexandra_Labo2.Models.Category", "Category")
-                        .WithMany("BookCategories")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Ginga_Alexandra_Labo2.Models.Book", b =>
-                {
-                    b.Navigation("BookCategories");
-                });
-
-            modelBuilder.Entity("Ginga_Alexandra_Labo2.Models.Category", b =>
-                {
-                    b.Navigation("BookCategories");
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Ginga_Alexandra_Labo2.Models.Publisher", b =>

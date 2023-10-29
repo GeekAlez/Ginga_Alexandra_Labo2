@@ -17,5 +17,9 @@ namespace Ginga_Alexandra_Labo2.Data
         public DbSet<Ginga_Alexandra_Labo2.Models.Book> Book { get; set; } = default!;
 
         public DbSet<Ginga_Alexandra_Labo2.Models.Publisher>? Publisher { get; set; }
+
+        public DbSet<Ginga_Alexandra_Labo2.Models.Author>? Author { get; set; }
+
+        public DbSet<Ginga_Alexandra_Labo2.Models.Category>? Category { get; set; }
     }
 }

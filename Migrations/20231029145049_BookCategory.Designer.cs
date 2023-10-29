@@ -4,6 +4,7 @@ using Ginga_Alexandra_Labo2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ginga_Alexandra_Labo2.Migrations
 {
     [DbContext(typeof(Ginga_Alexandra_Labo2Context))]
-    partial class Ginga_Alexandra_Labo2ContextModelSnapshot : ModelSnapshot
+    [Migration("20231029145049_BookCategory")]
+    partial class BookCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
