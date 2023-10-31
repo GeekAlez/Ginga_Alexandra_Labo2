@@ -22,16 +22,24 @@ namespace Ginga_Alexandra_Labo2.Pages.Books
             _context = context;
             // return Page;
         }
+
         public IList<Book> Book { get; set; }
         public BookData BookD { get; set; }
         public int BookID { get; set; }
         public int CategoryID { get; set; }
-        public async Task OnGetAsync(int? id, int? categoryID)
+        public string TitleSort { get; set; }
+        public string AuthorSort { get; set; }
+
+        public async Task OnGetAsync(int? id, int? categoryID, string sortOrder)
         {
             BookD = new BookData();
 
+            TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            AuthorSort = sortOrder == "author" ? "author_desc" : "author";
+
             BookD.Books = await _context.Book
             .Include(b => b.Publisher)
+            .Include(b => b.Author)
             .Include(b => b.BookCategories)
             .ThenInclude(b => b.Category)
             .AsNoTracking()
@@ -48,9 +56,28 @@ namespace Ginga_Alexandra_Labo2.Pages.Books
                 {
                     BookD.Categories = book.BookCategories.Select(s => s.Category);
                 }
+
+                switch (sortOrder)
+                {
+                    case "title_desc":
+                        BookD.Books = BookD.Books.OrderByDescending(s =>
+                       s.Title);
+                        break;
+                    case "author_desc":
+                        BookD.Books = BookD.Books.OrderByDescending(s =>
+                       s.Author.FullName);
+                        break;
+                    case "author":
+                        BookD.Books = BookD.Books.OrderBy(s =>
+                       s.Author.FullName);
+                        break;
+                    default:
+                        BookD.Books = BookD.Books.OrderBy(s => s.Title);
+                        break;
+                }
             }
         }
-    }
 
+    }
 }
    
