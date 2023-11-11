@@ -9,21 +9,24 @@ namespace Ginga_Alexandra_Labo2.Models
         public int ID { get; set; }
 
         [Display(Name = "Book Title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
-        public Author? Author { get; set; }
         public int? AuthorID { get; set; }
+        public Author? Author { get; set; }
+        
 
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Price { get; set; }
-        
+
+        [DataType(DataType.Date)]
         public DateTime PublishingDate { get; set; }
 
         public int? PublisherID { get; set; }
-        public ICollection<BookCategory>? BookCategories { get; set; }
         public Publisher? Publisher { get; set; }
-    } //navigation property
+      
 
-    
+        public ICollection<BookCategory>? BookCategories { get; set; }//navigation property
+      
+    } 
 
 }

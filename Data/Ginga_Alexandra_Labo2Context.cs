@@ -21,5 +21,9 @@ namespace Ginga_Alexandra_Labo2.Data
         public DbSet<Ginga_Alexandra_Labo2.Models.Author>? Author { get; set; }
 
         public DbSet<Ginga_Alexandra_Labo2.Models.Category>? Category { get; set; }
+
+        public DbSet<Ginga_Alexandra_Labo2.Models.Member>? Member { get; set; }
+
+        public DbSet<Ginga_Alexandra_Labo2.Models.Borrowing>? Borrowing { get; set; }
     }
 }
