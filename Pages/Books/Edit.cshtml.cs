@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ginga_Alexandra_Labo2.Data;
 using Ginga_Alexandra_Labo2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ginga_Alexandra_Labo2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : BookCategoriesPageModel
     {
         private readonly Ginga_Alexandra_Labo2.Data.Ginga_Alexandra_Labo2Context _context;
